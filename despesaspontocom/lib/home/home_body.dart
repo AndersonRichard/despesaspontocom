@@ -4,8 +4,13 @@ import 'package:despesaspontocom/commom/app_text_styles.dart';
 
 class HomeBody extends StatelessWidget {
   final List<Map<String, dynamic>> expenses;
+  final Function(int) onMarkAsPaid;
 
-  const HomeBody({super.key, required this.expenses});
+  const HomeBody({
+    super.key,
+    required this.expenses,
+    required this.onMarkAsPaid,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +53,7 @@ class HomeBody extends StatelessWidget {
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  'R\$ ${expenses.fold(0.0, (sum, expense) => sum + expense['value']).toStringAsFixed(2)}',
+                  'R\$ ${expenses.where((expense) => !expense['isPaid']).fold(0.0, (sum, expense) => sum + expense['value']).toStringAsFixed(2)}',
                   style: AppTextStyles.bigText.copyWith(
                     color: AppColors.whiteColor,
                   ),
@@ -73,20 +78,46 @@ class HomeBody extends StatelessWidget {
                 itemCount: expenses.length,
                 itemBuilder: (context, index) {
                   final expense = expenses[index];
-                  return Card(
-                    color: AppColors.whiteColor.withOpacity(0.8),
-                    child: ListTile(
-                      title: Text(
-                        expense['description'],
-                        style: Theme.of(context).textTheme.bodyMedium,
+                  return GestureDetector(
+                    onTap: () {
+                      if (!expense['isPaid']) {
+                        onMarkAsPaid(index); // Marca a despesa como paga
+                      }
+                    },
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 300),
+                      margin: const EdgeInsets.only(bottom: 8),
+                      decoration: BoxDecoration(
+                        color: expense['isPaid']
+                            ? AppColors.grayishBlue.withOpacity(0.5)
+                            : AppColors.whiteColor.withOpacity(0.8),
+                        borderRadius: BorderRadius.circular(8),
                       ),
-                      subtitle: Text(
-                        'Vencimento: ${expense['dueDate']}',
-                        style: Theme.of(context).textTheme.bodyMedium,
-                      ),
-                      trailing: Text(
-                        'R\$ ${expense['value'].toStringAsFixed(2)}',
-                        style: Theme.of(context).textTheme.bodyMedium,
+                      child: ListTile(
+                        title: Text(
+                          expense['description'],
+                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                decoration: expense['isPaid']
+                                    ? TextDecoration.lineThrough
+                                    : null,
+                              ),
+                        ),
+                        subtitle: Text(
+                          'Vencimento: ${expense['dueDate']}',
+                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                decoration: expense['isPaid']
+                                    ? TextDecoration.lineThrough
+                                    : null,
+                              ),
+                        ),
+                        trailing: AnimatedOpacity(
+                          opacity: expense['isPaid'] ? 1.0 : 0.0,
+                          duration: const Duration(milliseconds: 300),
+                          child: const Icon(
+                            Icons.check_circle,
+                            color: Colors.green,
+                          ),
+                        ),
                       ),
                     ),
                   );
