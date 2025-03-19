@@ -5,11 +5,13 @@ import 'package:despesaspontocom/commom/app_text_styles.dart';
 class HomeBody extends StatelessWidget {
   final List<Map<String, dynamic>> expenses;
   final Function(int) onMarkAsPaid;
+  final double accountBalance;
 
   const HomeBody({
     super.key,
     required this.expenses,
     required this.onMarkAsPaid,
+    required this.accountBalance,
   });
 
   @override
@@ -31,7 +33,7 @@ class HomeBody extends StatelessWidget {
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  'R\$ 5.000,00',
+                  'R\$ $accountBalance',
                   style: AppTextStyles.bigText.copyWith(
                     color: AppColors.whiteColor,
                   ),
@@ -53,7 +55,7 @@ class HomeBody extends StatelessWidget {
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  'R\$ ${expenses.where((expense) => !expense['isPaid']).fold(0.0, (sum, expense) => sum + expense['value']).toStringAsFixed(2)}',
+                  'R\$ ${expenses.where((expense) => !expense['isPaid']).fold(0.0, (sum, expense) => sum + (expense['value'] as num))}',
                   style: AppTextStyles.bigText.copyWith(
                     color: AppColors.whiteColor,
                   ),
@@ -81,7 +83,7 @@ class HomeBody extends StatelessWidget {
                   return GestureDetector(
                     onTap: () {
                       if (!expense['isPaid']) {
-                        onMarkAsPaid(index); // Marca a despesa como paga
+                        onMarkAsPaid(index); 
                       }
                     },
                     child: AnimatedContainer(

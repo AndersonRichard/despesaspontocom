@@ -3,12 +3,17 @@ import 'package:despesaspontocom/commom/app_colors.dart';
 import 'package:despesaspontocom/commom/app_text_styles.dart';
 import 'package:despesaspontocom/components/gradient_background.dart';
 
-class AddExpensePage extends StatelessWidget {
+class AddExpensePage extends StatefulWidget {
+  const AddExpensePage({super.key});
+
+  @override
+  _AddExpensePageState createState() => _AddExpensePageState();
+}
+
+class _AddExpensePageState extends State<AddExpensePage> {
   final TextEditingController _descriptionController = TextEditingController();
   final TextEditingController _valueController = TextEditingController();
   final TextEditingController _dueDateController = TextEditingController();
-
-  AddExpensePage({super.key});
 
   @override
   Widget build(BuildContext context) {

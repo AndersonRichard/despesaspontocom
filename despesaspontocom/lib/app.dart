@@ -11,7 +11,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        primaryColor: AppColors.darkBlue, 
+        primaryColor: AppColors.darkBlue,   
         colorScheme: ColorScheme.light(
           primary: AppColors.darkBlue, 
           secondary: AppColors.grayishBlue, 

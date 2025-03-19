@@ -14,6 +14,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   List<Map<String, dynamic>> expenses = [];
+  double accountBalance = 5000.0; // Saldo inicial da conta
 
   // Função para adicionar uma nova despesa
   void _addExpense(Map<String, dynamic> newExpense) {
@@ -26,6 +27,7 @@ class _HomePageState extends State<HomePage> {
   void _markAsPaid(int index) {
     setState(() {
       expenses[index]['isPaid'] = true; // Marca a despesa como paga
+      accountBalance -= expenses[index]['value']; // Subtrai o valor do saldo
     });
   }
 
@@ -42,28 +44,28 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: AppColors.darkBlue,
         iconTheme: const IconThemeData(color: AppColors.whiteColor),
       ),
-      drawer: const HomeDrawer(), // Drawer da HomePage
+      drawer: const HomeDrawer(), 
       body: GradientBackground(
         child: HomeBody(
           expenses: expenses,
-          onMarkAsPaid: _markAsPaid, // Passa a função para marcar como paga
+          onMarkAsPaid: _markAsPaid, 
+          accountBalance: accountBalance,
         ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          // Navega para a tela de adicionar despesa
           final newExpense = await Navigator.push(
             context,
             MaterialPageRoute(
               builder: (context) => AddExpensePage(),
             ),
           );
-          // Se uma nova despesa foi adicionada, atualiza a lista
+
           if (newExpense != null) {
             _addExpense(newExpense);
           }
         },
-        child: const Icon(Icons.add), // Ícone do botão de adicionar
+        child: const Icon(Icons.add),
       ),
     );
   }
