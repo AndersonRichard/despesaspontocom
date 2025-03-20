@@ -41,4 +41,4 @@ flutter:
 flutter_launcher_icons:
   android: true
   ios: true
-  image_path: "assets/icons/icon.png" # Caminho da imagem do ícone
+  image_path: "assets/icons/app-wallet-passes.png" # Caminho da imagem do ícone
