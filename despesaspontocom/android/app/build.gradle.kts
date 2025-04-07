@@ -42,3 +42,5 @@ android {
 flutter {
     source = "../.."
 }
+
+aplly plugin "com.google.gms.google-services"

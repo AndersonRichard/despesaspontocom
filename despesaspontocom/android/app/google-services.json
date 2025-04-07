@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "927183393318",
+    "project_id": "logindespesaspontocom",
+    "storage_bucket": "logindespesaspontocom.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:927183393318:android:d98cb140ffbafdf02d4ce7",
+        "android_client_info": {
+          "package_name": "com.example.despesaspontocom"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "927183393318-cr4v88c6qs1opnv14j15oo041f0gh81i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDHbVDJm7F-9fjyhFoPd0W5K3arzDbRkqA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "927183393318-cr4v88c6qs1opnv14j15oo041f0gh81i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
