@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:despesaspontocom/commom/app_colors.dart';
 import 'package:despesaspontocom/commom/app_text_styles.dart';
 import 'package:despesaspontocom/splash/splash_page.dart';
+import 'package:despesaspontocom/login/login_page.dart';
 import 'package:despesaspontocom/home/home_page.dart';
 
 class App extends StatelessWidget {
@@ -23,9 +24,10 @@ class App extends StatelessWidget {
         ),
         scaffoldBackgroundColor: AppColors.whiteColor, 
       ),
-      home: const SplashPage(), 
+      home: const SplashPage(),
       routes: {
-        '/home': (context) => const HomePage(), 
+        '/login': (context) => const LoginPage(),
+        '/home': (context) => const HomePage(),
       },
     );
   }
