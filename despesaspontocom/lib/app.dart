@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:despesaspontocom/commom/app_colors.dart';
-import 'package:despesaspontocom/commom/app_text_styles.dart';
+import 'package:despesaspontocom/commom/app_transitions.dart';
+import 'package:despesaspontocom/home/home_page.dart';
 import 'package:despesaspontocom/splash/splash_page.dart';
-import 'package:despesaspontocom/login/login_page.dart';
 import 'package:despesaspontocom/home/home_page.dart';
 
 class App extends StatelessWidget {
@@ -11,23 +11,25 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: 'Despesas.com',
       theme: ThemeData(
-        primaryColor: AppColors.darkBlue,   
-        colorScheme: ColorScheme.light(
-          primary: AppColors.darkBlue, 
-          secondary: AppColors.grayishBlue, 
+        primarySwatch: Colors.blue,
+        scaffoldBackgroundColor: AppColors.darkBlue,
+        appBarTheme: const AppBarTheme(
+          backgroundColor: AppColors.darkBlue,
+          elevation: 0,
         ),
-        textTheme: TextTheme(
-          headlineLarge: AppTextStyles.bigText, 
-          bodyLarge: AppTextStyles.mediumText18, 
-          bodyMedium: AppTextStyles.smallText, 
-        ),
-        scaffoldBackgroundColor: AppColors.whiteColor, 
       ),
-      home: const SplashPage(),
-      routes: {
-        '/login': (context) => const LoginPage(),
-        '/home': (context) => const HomePage(),
+      initialRoute: '/splash',
+      onGenerateRoute: (settings) {
+        switch (settings.name) {
+          case '/splash':
+            return AppTransitions.fadeTransition(const SplashPage());
+          case '/home':
+            return AppTransitions.slideTransition(const HomePage());
+          default:
+            return AppTransitions.fadeTransition(const SplashPage());
+        }
       },
     );
   }
